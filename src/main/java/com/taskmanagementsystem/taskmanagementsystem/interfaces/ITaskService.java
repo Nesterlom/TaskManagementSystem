@@ -1,4 +1,4 @@
-package com.taskmanagementsystem.taskmanagementsystem.service;
+package com.taskmanagementsystem.taskmanagementsystem.interfaces;
 
 import com.taskmanagementsystem.taskmanagementsystem.dto.TaskDTO;
 import com.taskmanagementsystem.taskmanagementsystem.dto.response.PageResponse;

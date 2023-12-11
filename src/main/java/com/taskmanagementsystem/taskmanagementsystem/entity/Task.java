@@ -9,6 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +31,13 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull(message = "Task title can't be empty")
+    @Size(min = 1, max = 20, message = "Size of task title should be from 1 to 20 characters")
     private String title;
+
+    @NotNull(message = "Task description can't be null")
+    @Size(min = 1, max = 100, message = "Size of task description should be from 1 to 100 characters")
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -43,6 +51,5 @@ public class Task {
 
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
-
     //author
 }

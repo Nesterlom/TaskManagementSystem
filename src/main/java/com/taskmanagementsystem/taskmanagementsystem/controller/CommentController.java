@@ -2,7 +2,7 @@ package com.taskmanagementsystem.taskmanagementsystem.controller;
 
 import com.taskmanagementsystem.taskmanagementsystem.dto.CommentDTO;
 import com.taskmanagementsystem.taskmanagementsystem.dto.response.PageResponse;
-import com.taskmanagementsystem.taskmanagementsystem.service.ICommentService;
+import com.taskmanagementsystem.taskmanagementsystem.interfaces.ICommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

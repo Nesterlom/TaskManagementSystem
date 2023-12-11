@@ -1,6 +1,6 @@
 package com.taskmanagementsystem.taskmanagementsystem.entity;
 
 public enum Role {
-    ROLE_WORKER,
+    ROLE_USER,
     ROLE_ADMIN
 }
