@@ -43,6 +43,9 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @NotNull
+    private String author;//email?
+
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
@@ -51,5 +54,4 @@ public class Task {
 
     @OneToMany
     private List<Comment> comments = new ArrayList<>();
-    //author
 }

@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  api:
+    build: ./
+    ports:
+      - "8081:8081"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:latest
+    environment:
+      my_sql_username: root
+      MYSQL_ROOT_PASSWORD: DBilyha2280!
+      my_sql_taskmanagementsystem_url: jdbc:mysql://localhost:3306/taskmanagementsystem
+
+

@@ -29,7 +29,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        String[] whiteList = {"/api/auth/**"};
+        String[] whiteList = {"/api/auth/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/**"};
 
         http
                 .csrf(AbstractHttpConfigurer::disable)

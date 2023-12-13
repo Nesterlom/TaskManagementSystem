@@ -3,6 +3,8 @@ package com.taskmanagementsystem.taskmanagementsystem.controller;
 import com.taskmanagementsystem.taskmanagementsystem.dto.CommentDTO;
 import com.taskmanagementsystem.taskmanagementsystem.dto.response.PageResponse;
 import com.taskmanagementsystem.taskmanagementsystem.interfaces.ICommentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,9 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/comment")
+@Tag(name = "Comments API")
 public class CommentController {
     private final ICommentService commentService;
 
+    @Operation(summary = "This endpoint allow us to paginate all comments.Also you can use filtration and sorting")
     @GetMapping()
     public ResponseEntity<PageResponse<CommentDTO>> getAllComments(
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
@@ -33,21 +37,25 @@ public class CommentController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "This endpoint allow us to get information about one Comment")
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentDTO> getCommentById(@PathVariable Long commentId){
         return ResponseEntity.ok(commentService.getCommentById(commentId));
     }
 
+    @Operation(summary = "This endpoint allow us to add new Comment")
     @PostMapping()
     public ResponseEntity<CommentDTO> addComment(@RequestBody CommentDTO commentDto){
         return ResponseEntity.ok(commentService.addComment(commentDto));
     }
 
+    @Operation(summary = "This endpoint allow us to update Comment information")
     @PutMapping()
     public ResponseEntity<CommentDTO> updateComment(@RequestBody CommentDTO commentDto){
         return ResponseEntity.ok(commentService.updateComment(commentDto));
     }
 
+    @Operation(summary = "This endpoint allow Admin to delete any Comment")
     @DeleteMapping("/{commentId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteComment(@PathVariable Long commentId){

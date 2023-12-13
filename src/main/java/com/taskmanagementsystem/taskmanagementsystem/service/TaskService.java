@@ -15,6 +15,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.expression.ParseException;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 @RequiredArgsConstructor
 public class TaskService implements ITaskService {
@@ -43,7 +45,8 @@ public class TaskService implements ITaskService {
         return convertToDto(taskRepo.getTaskById(taskId).orElseThrow(() -> new NotFoundException("not found task")));
     }
 
-    public TaskDTO addTask(TaskDTO taskDto) {
+    public TaskDTO addTask(TaskDTO taskDto, Principal principal) {
+        taskDto.setAuthor(principal.getName());
         Task task = convertToEntity(taskDto);
 
         return convertToDto(taskRepo.save(task));
