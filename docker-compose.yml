@@ -1,17 +1,28 @@
 version: '3.8'
 
 services:
-  api:
-    build: ./
-    ports:
-      - "8081:8081"
-    depends_on:
-      - mysql
   mysql:
     image: mysql:latest
     environment:
-      my_sql_username: root
-      MYSQL_ROOT_PASSWORD: DBilyha2280!
-      my_sql_taskmanagementsystem_url: jdbc:mysql://localhost:3306/taskmanagementsystem
+      - MYSQL_DATABASE=task_system_db
+      - MYSQL_ROOT_PASSWORD=root
+  api:
+    build: ./
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/task_system_db
+    depends_on:
+      - mysql
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=root
+#      - MYSQL_DATABASE=database
+#      - MYSQL_USER=root
+#      - MYSQL_PASSWORD=root
+#      my_sql_username: mysql
+#      my_sql_pass: root
+#      my_sql_taskmanagementsystem_url: jdbc:mysql://localhost:3306/task_system_db
+#      my_sql_db: task_system_db
 
 
