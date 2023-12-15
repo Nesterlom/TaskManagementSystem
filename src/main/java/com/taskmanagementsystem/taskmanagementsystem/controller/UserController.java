@@ -40,7 +40,7 @@ public class UserController {
     @GetMapping()
     public ResponseEntity<PageResponse<UserDTO>> getAllUsers(
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestBody UserDTO userDto) {
+            @RequestBody(required = false) UserDTO userDto) {
 
         PageResponse<UserDTO> filteredProducts = userService.getAllUsers(userDto, pageable);
         return new ResponseEntity<>(filteredProducts, HttpStatus.OK);

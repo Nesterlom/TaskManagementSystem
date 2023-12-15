@@ -1,5 +1,6 @@
 package com.taskmanagementsystem.taskmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -50,6 +51,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @ManyToMany
+    @JsonIgnoreProperties(value = "workers")
+    @ManyToMany(mappedBy = "workers")
     private List<Task> tasks = new ArrayList<>();
 }

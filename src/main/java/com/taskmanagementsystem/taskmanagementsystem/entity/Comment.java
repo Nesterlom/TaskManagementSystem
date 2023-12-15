@@ -27,6 +27,7 @@ public class Comment {
     private Long id;
 
     @NotNull(message = "Task id can't be empty")
+    @Column(name = "task_id")
     private Long taskId;
 
     @NotNull(message = "Comment text can't be empty ")

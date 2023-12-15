@@ -25,10 +25,17 @@ public class TaskService implements ITaskService {
 
     public PageResponse<TaskDTO> getAll(TaskDTO taskDto , Pageable pageable) {
         ExampleMatcher customExampleMatcher = ExampleMatcher.matching()
+                .withMatcher("title", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+                .withMatcher("author", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
                 .withMatcher("description", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 
         Task exampleTask = new Task();
-        exampleTask.setDescription(taskDto.getDescription());
+
+        if(taskDto != null){
+            exampleTask.setAuthor(taskDto.getAuthor());
+            exampleTask.setTitle(taskDto.getTitle());
+            exampleTask.setDescription(taskDto.getDescription());
+        };
 
         Example<Task> example = Example.of(exampleTask, customExampleMatcher);
         Page<Task> result = taskRepo.findAll(example, pageable);

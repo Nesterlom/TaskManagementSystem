@@ -32,7 +32,7 @@ public class CommentController {
     @GetMapping()
     public ResponseEntity<PageResponse<CommentDTO>> getAllComments(
             @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC) Pageable pageable,
-            @RequestBody CommentDTO commentDTO) {
+            @RequestBody(required = false) CommentDTO commentDTO) {
         PageResponse<CommentDTO> result = commentService.getAllComments(commentDTO, pageable);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

@@ -21,3 +21,5 @@ public class TaskManagementSystemApplication {
 //Swagger docs
 //docker compose
 //unit tests
+
+//todo Task with List of workers emails(not list of whole workers)

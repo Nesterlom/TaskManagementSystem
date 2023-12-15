@@ -82,4 +82,6 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(a, status);
     }
+
+    //SQLIntegrityConstraintViolationException
 }

@@ -64,9 +64,11 @@ public class UserService implements IUserService {
                 .withMatcher("email", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 
         User exampleUser = new User();
-        exampleUser.setEmail(userDto.getEmail());
-        exampleUser.setName(userDto.getName());
-        exampleUser.setSurname(userDto.getSurname());
+        if(userDto != null){
+            exampleUser.setEmail(userDto.getEmail());
+            exampleUser.setName(userDto.getName());
+            exampleUser.setSurname(userDto.getSurname());
+        }
 
         Example<User> example = Example.of(exampleUser, customExampleMatcher);
         Page<User> result = userRepo.findAll(example, pageable);

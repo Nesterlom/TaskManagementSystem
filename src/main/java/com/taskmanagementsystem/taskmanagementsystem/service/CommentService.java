@@ -27,7 +27,9 @@ public class CommentService implements ICommentService {
                 .withMatcher("text", ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase());
 
         Comment exampleComment = new Comment();
-        exampleComment.setText(commentDto.getText());
+        if(commentDto != null) {
+            exampleComment.setText(commentDto.getText());
+        }
 
         Example<Comment> example = Example.of(exampleComment, customExampleMatcher);
         Page<Comment> result = commentRepo.findAll(example, pageable);

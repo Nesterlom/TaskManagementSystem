@@ -1,11 +1,16 @@
 package com.taskmanagementsystem.taskmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -44,14 +49,23 @@ public class Task {
     private Status status;
 
     @NotNull
-    private String author;//email?
+    private String author;
 
     @Enumerated(EnumType.STRING)
     private Priority priority;
 
+    @JsonIgnoreProperties(value = "tasks")
     @ManyToMany
-    private List<User> workers;
+    @JoinTable(
+            name = "tasks_workers",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> workers = new ArrayList<>();
 
+//    @OneToMany(targetEntity=Task.class,cascade= CascadeType.ALL,
+//            fetch = FetchType.LAZY)
     @OneToMany
+    @JoinColumn(name = "task_id", referencedColumnName = "id")
     private List<Comment> comments = new ArrayList<>();
 }
