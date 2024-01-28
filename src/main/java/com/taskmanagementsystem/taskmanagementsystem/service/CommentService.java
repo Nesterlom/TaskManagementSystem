@@ -43,7 +43,7 @@ public class CommentService implements ICommentService {
     }
 
     public CommentDTO getCommentById(Long commentId) {
-        return convertToDto(commentRepo.getCommentById(commentId).orElseThrow(() -> new NotFoundException("not found comment")));
+        return convertToDto(commentRepo.findById(commentId).orElseThrow(() -> new NotFoundException("not found comment")));
     }
 
     public CommentDTO addComment(CommentDTO commentDto) {

@@ -49,7 +49,7 @@ public class TaskService implements ITaskService {
     }
 
     public TaskDTO getTaskById(Long taskId) {
-        return convertToDto(taskRepo.getTaskById(taskId).orElseThrow(() -> new NotFoundException("not found task")));
+        return convertToDto(taskRepo.findById(taskId).orElseThrow(() -> new NotFoundException("not found task")));
     }
 
     public TaskDTO addTask(TaskDTO taskDto, Principal principal) {

@@ -2,6 +2,7 @@ package com.taskmanagementsystem.taskmanagementsystem.config;
 
 import com.taskmanagementsystem.taskmanagementsystem.service.JwtService;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,21 +26,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader("authorization");
         String username = null;
         String jwt = null;
+            if (authHeader != null && authHeader.startsWith("Bearer ")) {
+                jwt = authHeader.substring(7);
+                username = jwtService.getUsername(jwt);
+            }
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            jwt = authHeader.substring(7);
-            username = jwtService.getUsername(jwt);
-        }
+            if (username != null) {
+                var token = new UsernamePasswordAuthenticationToken(
+                        username,
+                        null,
+                        List.of(new SimpleGrantedAuthority(jwtService.getRole(jwt)))
+                );
 
-        if (username != null) {
-            var token = new UsernamePasswordAuthenticationToken(
-                    username,
-                    null,
-                    List.of(new SimpleGrantedAuthority(jwtService.getRole(jwt)))
-            );
-
-            SecurityContextHolder.getContext().setAuthentication(token);
-        }
+                SecurityContextHolder.getContext().setAuthentication(token);
+            }
 
         filterChain.doFilter(request, response);
     }

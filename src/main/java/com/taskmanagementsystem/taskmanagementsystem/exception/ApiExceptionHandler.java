@@ -1,6 +1,8 @@
 package com.taskmanagementsystem.taskmanagementsystem.exception;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
+import jakarta.servlet.ServletException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
@@ -65,6 +67,18 @@ public class ApiExceptionHandler {
 
         ApiError a = new ApiError(
                 "JWT was expired",
+                status
+        );
+
+        return new ResponseEntity<>(a, status);
+    }
+
+    @ExceptionHandler(value = {JwtException.class})
+    public ResponseEntity<ApiError> handleJwtException(ServletException e){
+        var status = HttpStatus.UNAUTHORIZED;
+
+        ApiError a = new ApiError(
+                "JWT token is wrong",
                 status
         );
 

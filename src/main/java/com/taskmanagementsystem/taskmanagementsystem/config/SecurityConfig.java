@@ -24,6 +24,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final IUserService userService;
     private final JwtRequestFilter jwtRequestFilter;
+    private final ExceptionHandlerFilter handlerFilter;
+
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Bean
@@ -41,7 +43,8 @@ public class SecurityConfig {
                 )
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(handlerFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAfter(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

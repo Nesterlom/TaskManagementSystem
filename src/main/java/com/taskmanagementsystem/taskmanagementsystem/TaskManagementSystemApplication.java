@@ -15,11 +15,3 @@ public class TaskManagementSystemApplication {
 
 }
 
-//ADMIN can create/update new tasks and set workers to task,
-// worker who work on some task can change it status and write comments
-//add author to task(implement throw Principal), also change db
-//Swagger docs
-//docker compose
-//unit tests
-
-//todo Task with List of workers emails(not list of whole workers)
